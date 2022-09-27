@@ -1,39 +1,32 @@
 # Open all incoming connections to the nginx port 8082 using iptables.
-# Ensure the rules are permanent.
+# Block all incoming connections to the httpd port 8094 using iptables.
 
-# Check if the script is run as root
-if [ "$(id -u)" != "0" ]; then
-    echo "This script must be run as root" 1>&2
-    exit 1
-fi
+# Open port 8082
+iptables -A INPUT -p tcp --dport 8082 -j ACCEPT
 
-# Check if iptables is installed
-if ! [ -x "$(command -v iptables)" ]; then
-    echo "iptables is not installed. Please install it and try again." 1>&2
-    exit 1
-fi
-
-# Check if the iptables rules are already in place
-if iptables -C INPUT -p tcp --dport 8082 -j ACCEPT; then
-    echo "The iptables rules are already in place."
-    exit 0
-fi
-
-# Open the port 8082
-iptables -I INPUT -p tcp --dport 8082 -j ACCEPT
+# Block port 8094
+iptables -A INPUT -p tcp --dport 8094 -j DROP
 
 # Save the iptables rules
-iptables-save > /etc/iptables/rules.v4
+iptables-save > /etc/sysconfig/iptables
 
-# Check if the iptables rules are in place
-if iptables -C INPUT -p tcp --dport 8082 -j ACCEPT; then
-    echo "The iptables rules are in place."
-    exit 0
-else
-    echo "The iptables rules are not in place." 1>&2
-    exit 1
-fi
+# Restart iptables
+service iptables restart
 
-# Run the script
-sudo sh app_security.sh
+# Restart nginx
+service nginx restart
+
+# Restart httpd
+service httpd restart
+
+# Verify the iptables rules are in place.
+iptables -L
+
+# Verify the nginx and httpd services are running.
+service nginx status
+service httpd status
+
+# Ensure the above changes are permanent.
+chkconfig nginx on
+chkconfig httpd on
 
