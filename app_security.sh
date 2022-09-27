@@ -1,6 +1,12 @@
 # Open all incoming connections to the nginx port 8082 using iptables.
 # Block all incoming connections to the httpd port 8094 using iptables.
 
+# Ensure that the script is run as root.
+if [ "$(id -u)" != "0" ]; then
+    echo "This script must be run as root" 1>&2
+    exit 1
+fi
+
 # Open port 8082
 iptables -A INPUT -p tcp --dport 8082 -j ACCEPT
 
