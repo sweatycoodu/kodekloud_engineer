@@ -1,20 +1,21 @@
-# Open all incoming connections to the nginx port 8082 using iptables.
-# Block all incoming connections to the httpd port 8094 using iptables.
+# Script / Instructions for KodeKloud Engineer Task: Application Security.
+# Written by Sam Cole - https://github.com/sweatycoodu/
+# As always - give it a go first - use if stuck.
 
-# Ensure that the script is run as root.
-if [ "$(id -u)" != "0" ]; then
-    echo "This script must be run as root" 1>&2
-    exit 1
-fi
+# Change ports and allow/block as needed for your task.
+# Follow basic SSH instructions to connect to specified server.
 
-# Open port 8082
-iptables -A INPUT -p tcp --dport 8082 -j ACCEPT
+# Open port 8092 for nginx
+iptables -A INPUT -p tcp --dport 8092 -j ACCEPT
 
-# Block port 8094
-iptables -A INPUT -p tcp --dport 8094 -j DROP
+# Block port 3003 for apache.
+iptables -A INPUT -p tcp --dport 3003 -j DROP
 
 # Save the iptables rules
 iptables-save > /etc/sysconfig/iptables
+
+# Make the rules permanent and persistent across reboots.
+chkconfig iptables on
 
 # Restart iptables
 service iptables restart
@@ -31,8 +32,3 @@ iptables -L
 # Verify the nginx and httpd services are running.
 service nginx status
 service httpd status
-
-# Ensure the above changes are permanent.
-chkconfig nginx on
-chkconfig httpd on
-
