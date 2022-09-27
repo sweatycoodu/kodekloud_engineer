@@ -11,19 +11,19 @@ iptables -A INPUT -p tcp --dport 8092 -j ACCEPT
 # Block port 3003 for apache.
 iptables -A INPUT -p tcp --dport 3003 -j DROP
 
-# Save the iptables rules
+# Save the iptables rules.
 iptables-save > /etc/sysconfig/iptables
 
 # Make the rules permanent and persistent across reboots.
 chkconfig iptables on
 
-# Restart iptables
+# Restart iptables.
 service iptables restart
 
-# Restart nginx
+# Restart nginx.
 service nginx restart
 
-# Restart httpd
+# Restart httpd.
 service httpd restart
 
 # Verify the iptables rules are in place.
