@@ -13,5 +13,3 @@ sudo systemctl status cups
 
 # Enable cups service on boot.
 sudo systemctl enable cups
-
-
