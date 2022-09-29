@@ -2,9 +2,6 @@
 # Written by Sam Cole - https://github.com/sweatycoodu/
 # As always - give it a go first - use if stuck.
 
-# Change ports and allow/block as needed for your task.
-# Follow basic SSH instructions to connect to specified server.
-
 # Open port 8092 for nginx.
 iptables -A INPUT -p tcp --dport 8092 -j ACCEPT
 
