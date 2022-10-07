@@ -3,10 +3,10 @@
 # As always - give it a go first - use if stuck.
 
 # Open port 8092 for nginx.
-iptables -A INPUT -p tcp --dport 8092 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8095 -j ACCEPT
 
 # Block port 3003 for apache.
-iptables -A INPUT -p tcp --dport 3003 -j DROP
+iptables -A INPUT -p tcp --dport 8082 -j DROP
 
 # Save the iptables rules.
 iptables-save > /etc/sysconfig/iptables
