@@ -1,0 +1,86 @@
+# Ansible YAML for KodeKloud Engineer Task: Creating Soft Links Using Ansible.
+# Written by Sam Cole - https://github.com/sweatycoodu/
+# As always - give it a go first - use if stuck.
+
+---
+
+# Create the empty file as requested on stapp01.
+
+- name: Create empty file /opt/itadmin/blog.txt on stapp01.
+  hosts: stapp01
+  become: yes
+  tasks:
+    - name: Create empty file /opt/itadmin/blog.txt on stapp01.
+      file:
+        path: /opt/itadmin/blog.txt
+        state: touch
+        owner: tony
+        group: tony
+        
+# Create the symbolic link as requested on stapp01.
+
+- name: Create symbolic link of /opt/itadmin to /var/www/html on stapp01.
+  hosts: stapp01
+  become: yes
+  tasks:
+    - name: Create symbolic link of /opt/itadmin to /var/www/html on stapp01.
+      file:
+        src: /opt/itadmin
+        dest: /var/www/html
+        state: link
+        owner: tony
+        group: tony
+
+# Create the empty file as requested on stapp02.
+
+- name: Create empty file /opt/itadmin/story.txt on stapp02.
+  hosts: stapp02
+  become: yes
+  tasks:
+    - name: Create empty file /opt/itadmin/story.txt on stapp02.
+      file:
+        path: /opt/itadmin/story.txt
+        state: touch
+        owner: steve
+        group: steve
+
+# Create the symbolic link as requested on stapp02.
+
+- name: Create symbolic link of /opt/itadmin to /var/www/html on stapp02.
+  hosts: stapp02
+  become: yes
+  tasks:
+    - name: Create symbolic link of /opt/itadmin to /var/www/html on stapp02.
+      file:
+        src: /opt/itadmin
+        dest: /var/www/html
+        state: link
+        owner: steve
+        group: steve
+
+# Create the empty file as requested on stapp03.
+
+- name: Create empty file /opt/itadmin/media.txt on stapp03.
+  hosts: stapp03
+  become: yes
+  tasks:
+    - name: Create empty file /opt/itadmin/media.txt on stapp03.
+      file:
+        path: /opt/itadmin/media.txt
+        state: touch
+        owner: banner
+        group: banner
+
+# Create the symbolic link as requested on stapp03.
+
+- name: Create symbolic link of /opt/itadmin to /var/www/html on stapp03.
+  hosts: stapp03
+  become: yes
+  tasks:
+    - name: Create symbolic link of /opt/itadmin to /var/www/html on stapp03.
+      file:
+        src: /opt/itadmin
+        dest: /var/www/html
+        state: link
+        owner: banner
+        group: banner
