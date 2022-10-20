@@ -1,0 +1,67 @@
+# Setup service for Jenkins in the jenkins namespace.
+# This service is used to expose the Jenkins UI to the outside world.
+# Let's call the service jenkins-service.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  namespace: jenkins
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30008
+  selector:
+    app: jenkins
+---
+# Setup persistent claim for Jenkins in the jenkins namespace.
+# This persistent claim is used to store the Jenkins data.
+# Let's call the persistent claim jenkins-pv-claim.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pv-claim
+  namespace: jenkins
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+
+# Setup a deployment for Jenkins in the jenkins namespace.
+# This deployment is used to run Jenkins.
+# Let's call the deployment jenkins-deployment.
+# Labels should be app: jenkins.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-deployment
+  namespace: jenkins
+  labels:
+    app: jenkins
+spec:
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      containers:
+        - name: jenkins-container
+          image: jenkins/jenkins
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+      volumes:
+        - name: jenkins-home
+          persistentVolumeClaim:
+            claimName: jenkins-pv-claim
+---
