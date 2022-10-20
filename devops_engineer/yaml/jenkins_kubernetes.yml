@@ -1,6 +1,4 @@
 # Setup service for Jenkins in the jenkins namespace.
-# This service is used to expose the Jenkins UI to the outside world.
-# Let's call the service jenkins-service.
 ---
 apiVersion: v1
 kind: Service
@@ -17,8 +15,6 @@ spec:
     app: jenkins
 ---
 # Setup persistent claim for Jenkins in the jenkins namespace.
-# This persistent claim is used to store the Jenkins data.
-# Let's call the persistent claim jenkins-pv-claim.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -33,9 +29,6 @@ spec:
 ---
 
 # Setup a deployment for Jenkins in the jenkins namespace.
-# This deployment is used to run Jenkins.
-# Let's call the deployment jenkins-deployment.
-# Labels should be app: jenkins.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
