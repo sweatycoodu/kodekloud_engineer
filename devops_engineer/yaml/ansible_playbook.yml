@@ -8,7 +8,7 @@
 
 - name: Create empty file /opt/itadmin/blog.txt on stapp01.
   hosts: stapp01
-  become: yes
+  become: true
   tasks:
     - name: Create empty file /opt/itadmin/blog.txt on stapp01.
       file:
@@ -21,7 +21,7 @@
 
 - name: Create symbolic link of /opt/itadmin to /var/www/html on stapp01.
   hosts: stapp01
-  become: yes
+  become: true
   tasks:
     - name: Create symbolic link of /opt/itadmin to /var/www/html on stapp01.
       file:
@@ -35,7 +35,7 @@
 
 - name: Create empty file /opt/itadmin/story.txt on stapp02.
   hosts: stapp02
-  become: yes
+  become: true
   tasks:
     - name: Create empty file /opt/itadmin/story.txt on stapp02.
       file:
@@ -48,7 +48,7 @@
 
 - name: Create symbolic link of /opt/itadmin to /var/www/html on stapp02.
   hosts: stapp02
-  become: yes
+  become: true
   tasks:
     - name: Create symbolic link of /opt/itadmin to /var/www/html on stapp02.
       file:
@@ -62,7 +62,7 @@
 
 - name: Create empty file /opt/itadmin/media.txt on stapp03.
   hosts: stapp03
-  become: yes
+  become: true
   tasks:
     - name: Create empty file /opt/itadmin/media.txt on stapp03.
       file:
@@ -75,7 +75,7 @@
 
 - name: Create symbolic link of /opt/itadmin to /var/www/html on stapp03.
   hosts: stapp03
-  become: yes
+  become: true
   tasks:
     - name: Create symbolic link of /opt/itadmin to /var/www/html on stapp03.
       file:
