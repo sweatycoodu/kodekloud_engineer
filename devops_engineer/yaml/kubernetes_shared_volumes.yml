@@ -1,0 +1,23 @@
+# YAML to setup the pod as per task specification.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-share-xfusion
+spec:
+  containers:
+    - name: volume-container-xfusion-1
+      image: centos
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: volume-share
+          mountPath: /tmp/beta
+    - name: volume-container-xfusion-2
+      image: centos
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: volume-share
+          mountPath: /tmp/apps
+  # Create a shared volume.
+  volumes:
+    - name: volume-share
+      emptyDir: {}
