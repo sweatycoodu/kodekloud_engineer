@@ -1,0 +1,32 @@
+# Define the Pod parameters.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: print-envars-greeting
+spec:
+# Setup the container.
+  containers:
+  - name: print-env-container
+    image: bash
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    volumeMounts:
+    - name: workdir
+      mountPath: /tmp
+    env:
+    - name: GREETING
+      value: "Welcome to"
+    - name: COMPANY
+      value: "Stratos"
+    - name: GROUP
+      value: "Datacenter"
+    command: ['echo']
+    args: ["$(GREETING)", "$(COMPANY)", "$(GROUP)"]
+  volumes:
+  - name: workdir
+    emptyDir: {}
