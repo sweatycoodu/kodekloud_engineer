@@ -1,0 +1,36 @@
+# YAML to set up pod as per the requirement of the task.
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-p-claim
+  labels:
+    app: nginx_app
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1000Mi
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nginx
+  labels:
+    app: nginx_app
+spec:
+    containers:
+    - name: nginx-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      volumeMounts:
+      - name: nginx-persistent-storage
+        mountPath: /usr/share/nginx/html
+    volumes:
+    - name: nginx-persistent-storage
+      persistentVolumeClaim:
+        claimName: nginx-p-claim
