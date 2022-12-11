@@ -1,0 +1,35 @@
+# Ansible YAML for KodeKloud Engineer Task: Ansible Conditionals.
+# Written by Sam Cole - https://github.com/sweatycoodu/
+# As always - give it a go first - use if stuck.
+
+- hosts: all
+  tasks:
+    - name: Copy blog.txt to stapp01
+      become: true
+      copy:
+        src: /usr/src/itadmin/blog.txt
+        dest: /opt/itadmin/blog.txt
+        owner: tony
+        group: tony
+        mode: 0744
+      when: inventory_hostname == "stapp01"
+
+    - name: Copy story.txt to stapp02
+      become: true
+      copy:
+        src: /usr/src/itadmin/story.txt
+        dest: /opt/itadmin/story.txt
+        owner: steve
+        group: steve
+        mode: 0744
+      when: inventory_hostname == "stapp02"
+
+    - name: Copy media.txt to stapp03
+      become: true
+      copy:
+        src: /usr/src/itadmin/media.txt
+        dest: /opt/itadmin/media.txt
+        owner: banner
+        group: banner
+        mode: 0744
+      when: inventory_hostname == "stapp03"
