@@ -1,0 +1,8 @@
+# Create Config Map for Redis with max memory 2mb.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-redis-config
+data:
+  maxmemory: "2mb"
+  maxmemory-policy : "allkeys"
