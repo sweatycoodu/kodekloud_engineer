@@ -2,6 +2,9 @@
 # Written by Sam Cole - https://github.com/sweatycoodu/
 # As always - give it a go first - use if stuck.
 
+# Create namespace called devops.
+kubectl create namespace devops
+
 # Switch to the root user.
 sudo su
 
