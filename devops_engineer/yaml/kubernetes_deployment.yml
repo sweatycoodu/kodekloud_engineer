@@ -32,7 +32,7 @@ spec:
           ports:
         - containerPort: 80
 
-# Setup a service for nginx.
+# Set up a service for nginx.
 ---
 apiVersion: v1
 kind: Service
@@ -50,7 +50,7 @@ spec:
   selector:
     app: nginx
 
-# Setup a deployment for redis.
+# Set up a deployment for redis.
 ---
 apiVersion: apps/v1
 kind: Deployment
