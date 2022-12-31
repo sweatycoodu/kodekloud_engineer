@@ -1,0 +1,76 @@
+# YAML for KodeKloud task - basic Kubernetes Deployment.
+
+# Create a namespace resource called 'devops'.
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: devops
+
+# Setup a deployment for nginx.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: devops
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+
+# Setup a service for nginx.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: devops
+  labels:
+    app: nginx
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080
+  selector:
+    app: nginx
+
+# Setup a deployment for redis.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  namespace: devops
+  labels:
+    app: redis
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:5.0.5
+        ports:
+        - containerPort: 6379
