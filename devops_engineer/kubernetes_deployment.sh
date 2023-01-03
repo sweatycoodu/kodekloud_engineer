@@ -1,17 +1,23 @@
-# Setup deployment for Kubernetes Cluster.
+# Instructions for KodeKloud Engineer Task: Create Deployments in Kubernetes Cluster.
+# Written by Sam Cole - https://github.com/sweatycoodu/
+# As always - give it a go first - use if stuck.
 
-# Switch to root user.
+# Switch to the root user.
 sudo su
 
-# Create a new namespace.
-kubectl create namespace devops
+# Create folder and .yml for deployment.
+mkdir deployments && cd deployments || exit
+touch httpd-deployment.yml
 
-# Create the directory and file for the kubernetes manifest.
-mkdir -p /root/devops_engineer/kubernetes && cd /root/devops_engineer/kubernetes || exit
-touch deployment.yaml
+# Edit the .yml file via vi and add the contents of kubernetes_deployment.yml.
+vi httpd-deployment.yml
 
-# Edit the deployment.yaml file using the content from the GitHub repository yaml.
-vi deployment.yaml
+# Exit root user and switch to the deployments directory.
+exit
+cd deployments || exit
 
+# Create the deployment.
+kubectl create -f httpd-deployment.yml
 
-
+# Check the deployment.
+kubectl get deployments
