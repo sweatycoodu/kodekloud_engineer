@@ -2,34 +2,34 @@
 # Written by Sam Cole - https://github.com/sweatycoodu/
 # As always - give it a go first - use if stuck.
 
-# Create blank file blog.txt at /opt/dba/ on stapp01.xfusioncorp.com
-- name: Create blank file blog.txt at /opt/dba/ on stapp01.xfusioncorp.com
+# Create blank file blog.txt at /opt/itadmin/ on stapp01.xfusioncorp.com
+- name: Create blank file blog.txt at /opt/itadmin/ on stapp01.xfusioncorp.com
   hosts: stapp01
   become: yes
   tasks:
-    - name: Create blank file blog.txt at /opt/dba/ on stapp01.xfusioncorp.com
+    - name: Create blank file blog.txt at /opt/itadmin on stapp01.xfusioncorp.com
       file:
-        path: /opt/dba/blog.txt
+        path: /opt/itadmin/blog.txt
         state: touch
 
-# Create blank file story.txt at /opt/dba/ on stapp02.xfusioncorp.com
-- name: Create blank file story.txt at /opt/dba/ on stapp02.xfusioncorp.com
+# Create blank file story.txt at /opt/itadmin/ on stapp02.xfusioncorp.com
+- name: Create blank file story.txt at /opt/itadmin/ on stapp02.xfusioncorp.com
   hosts: stapp02
   become: yes
   tasks:
-    - name: Create blank file story.txt at /opt/dba/ on stapp02.xfusioncorp.com
+    - name: Create blank file story.txt at /opt/itadmin/ on stapp02.xfusioncorp.com
       file:
-        path: /opt/dba/story.txt
+        path: /opt/itadmin/story.txt
         state: touch
 
-# Create blank file media.txt at /opt/dba/ on stapp03.xfusioncorp.com
-- name: Create blank file media.txt at /opt/dba/ on stapp03.xfusioncorp.com
+# Create blank file media.txt at /opt/itadmin/ on stapp03.xfusioncorp.com
+- name: Create blank file media.txt at /opt/itadmin/ on stapp03.xfusioncorp.com
   hosts: stapp03
   become: yes
   tasks:
-    - name: Create blank file media.txt at /opt/dba/ on stapp03.xfusioncorp.com
+    - name: Create blank file media.txt at /opt/itadmin/ on stapp03.xfusioncorp.com
       file:
-        path: /opt/dba/media.txt
+        path: /opt/itadmin/media.txt
         state: touch
 
 # Apply read ACL to group tony on blog.txt.
@@ -39,7 +39,7 @@
   tasks:
     - name: Apply read ACL to group tony on blog.txt.
       acl:
-        path: /opt/dba/blog.txt
+        path: /opt/itadmin/blog.txt
         entity: tony
         etype: group
         permissions: r
@@ -52,7 +52,7 @@
   tasks:
     - name: Apply read + write ACL to user steve on story.txt.
       acl:
-        path: /opt/dba/story.txt
+        path: /opt/itadmin/story.txt
         entity: steve
         etype: user
         permissions: rw
@@ -65,7 +65,7 @@
   tasks:
     - name: Apply read + write ACL to group banner on media.txt.
       acl:
-        path: /opt/dba/media.txt
+        path: /opt/itadmin/media.txt
         entity: banner
         etype: group
         permissions: rw
