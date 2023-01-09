@@ -1,0 +1,73 @@
+# YAML Code for KodeKloud Engineer Task: Managing ACLs Using Ansible.
+# Written by Sam Cole - https://github.com/sweatycoodu/
+# As always - give it a go first - use if stuck.
+
+# Create blank file blog.txt at /opt/itadmin/ on stapp01.xfusioncorp.com
+- name: Create blank file blog.txt at /opt/itadmin/ on stapp01.xfusioncorp.com
+  hosts: stapp01
+  become: yes
+  tasks:
+    - name: Create blank file blog.txt at /opt/itadmin on stapp01.xfusioncorp.com
+      file:
+        path: /opt/itadmin/blog.txt
+        state: touch
+
+# Create blank file story.txt at /opt/itadmin/ on stapp02.xfusioncorp.com
+- name: Create blank file story.txt at /opt/itadmin/ on stapp02.xfusioncorp.com
+  hosts: stapp02
+  become: yes
+  tasks:
+    - name: Create blank file story.txt at /opt/itadmin/ on stapp02.xfusioncorp.com
+      file:
+        path: /opt/itadmin/story.txt
+        state: touch
+
+# Create blank file media.txt at /opt/itadmin/ on stapp03.xfusioncorp.com
+- name: Create blank file media.txt at /opt/itadmin/ on stapp03.xfusioncorp.com
+  hosts: stapp03
+  become: yes
+  tasks:
+    - name: Create blank file media.txt at /opt/itadmin/ on stapp03.xfusioncorp.com
+      file:
+        path: /opt/itadmin/media.txt
+        state: touch
+
+# Apply read ACL to group tony on blog.txt.
+- name: Apply read ACL to group tony on blog.txt.
+  hosts: stapp01
+  become: yes
+  tasks:
+    - name: Apply read ACL to group tony on blog.txt.
+      acl:
+        path: /opt/itadmin/blog.txt
+        entity: tony
+        etype: group
+        permissions: r
+        state: present
+
+# Apply read + write ACL to user steve on story.txt.
+- name: Apply read + write ACL to user steve on story.txt.
+  hosts: stapp02
+  become: yes
+  tasks:
+    - name: Apply read + write ACL to user steve on story.txt.
+      acl:
+        path: /opt/itadmin/story.txt
+        entity: steve
+        etype: user
+        permissions: rw
+        state: present
+
+# Apply read + write ACL to group banner on media.txt.
+- name: Apply read + write ACL to group banner on media.txt.
+  hosts: stapp03
+  become: yes
+  tasks:
+    - name: Apply read + write ACL to group banner on media.txt.
+      acl:
+        path: /opt/itadmin/media.txt
+        entity: banner
+        etype: group
+        permissions: rw
+        state: present
+
