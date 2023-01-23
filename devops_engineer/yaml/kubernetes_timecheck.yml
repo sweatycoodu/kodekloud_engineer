@@ -1,0 +1,31 @@
+# YAML to setup the deployment as per task specification.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: time-config
+  namespace: devops
+data:
+  TIME_FREQ: "8"
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: time-check
+  namespace: devops
+spec:
+  containers:
+  - name: time-check
+    image: busybox:latest
+    command: ['sh', '-c', 'while true; do date; sleep $TIME_FREQ;done >> /opt/security/time/time-check.log']
+    envFrom:
+    - configMapRef:
+        name: time-check
+    volumeMounts:
+    - name: log-volume
+      mountPath: /opt/security/time
+  volumes:
+  - name: log-volume
+    emptyDir: {}
+---
