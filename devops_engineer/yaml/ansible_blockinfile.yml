@@ -1,0 +1,29 @@
+# Task for httpd on all app servers.
+- name: Install httpd on stapp01, stapp02, stapp03.
+  hosts: stapp01, stapp02, stapp03
+  become: yes
+  tasks:
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: present
+    - name: Ensure service is running and enabled.
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+  # Populate the index.html file with the block of text.
+    - name: Use blockinfile to insert text into a file.
+      blockinfile:
+        path: /var/www/html/index.html
+        block: |
+          Welcome to XfusionCorp!
+          This is Nautilus sample file, created using Ansible!
+          Please do not modify this file manually!
+        create: yes
+        insertafter: BOF
+        state: present
+        # Change user/group ownership of the file.
+        owner: apache
+        group: apache
+        mode: 0744
